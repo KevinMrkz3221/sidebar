@@ -43,6 +43,7 @@ const rgbLabel = document.getElementById('rgb-value');
 
 // SidePanel Settings
 let userSettings = {
+    theme: 'emerald',
     visibility: {
         pomodoro: true,
         notes: true,
@@ -241,7 +242,7 @@ document.getElementById('add-app-btn').addEventListener('click', () => {
             document.getElementById('new-app-name').value = '';
             document.getElementById('new-app-url').value = '';
         } catch (e) {
-            alert('Please enter a valid URL (including https://)');
+            showNotification('Configuración', 'Por favor ingresa una URL válida (incluyendo https://)');
         }
     }
 });
@@ -310,6 +311,21 @@ function resetTimer() {
     pauseBtn.style.display = 'none';
 }
 
+// Utility: Notifications
+function showNotification(title, message) {
+    if (chrome.notifications) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'icons/icon128.png',
+            title: title,
+            message: message,
+            priority: 2
+        });
+    } else {
+        alert(`${title}: ${message}`);
+    }
+}
+
 function handleTimerComplete() {
     // Only the tab that finishes handles the storage update
     // But since storage update triggers sync in all tabs, it's efficient
@@ -335,7 +351,7 @@ function handleTimerComplete() {
         timerStatus = 'stopped'; // Require manual start for break too for sync clarity or auto?
 
         chrome.storage.local.set({ pomodoroHistory, isWorking, timerStatus, targetEndTime: null });
-        alert('Work session complete! Time for a break.');
+        showNotification('Pomodoro Hub', '¡Sesión de trabajo finalizada! Hora de un descanso.');
     } else {
         // Switch back to work
         const workMins = parseInt(document.getElementById('work-duration').value) || 25;
@@ -344,7 +360,7 @@ function handleTimerComplete() {
         timerStatus = 'stopped';
 
         chrome.storage.local.set({ isWorking, timerStatus, targetEndTime: null });
-        alert('Break over! Back to work.');
+        showNotification('Pomodoro Hub', '¡El descanso ha terminado! A trabajar.');
     }
 
     renderHistory();
@@ -374,7 +390,7 @@ function renderHistory() {
 
 document.getElementById('export-history').addEventListener('click', () => {
     if (pomodoroHistory.length === 0) {
-        alert('No history to export yet.');
+        showNotification('Pomodoro Hub', 'No hay historial para exportar todavía.');
         return;
     }
 
@@ -755,6 +771,16 @@ document.getElementById('collapse-sidebar').addEventListener('click', () => {
 });
 
 function applySettings() {
+    // 0. Update Theme
+    // Remove all theme classes first
+    document.body.classList.remove('theme-emerald', 'theme-dark', 'theme-light');
+    document.body.classList.add(`theme-${userSettings.theme || 'emerald'}`);
+
+    // Update theme selector UI
+    document.querySelectorAll('.theme-option').forEach(opt => {
+        opt.classList.toggle('active', opt.getAttribute('data-theme') === userSettings.theme);
+    });
+
     // 1. Update Toggles in UI
     for (const tool in userSettings.visibility) {
         const checkbox = document.getElementById(`toggle-${tool}`);
@@ -787,6 +813,15 @@ function saveSettings() {
 }
 
 // Settings Change Listeners
+document.querySelectorAll('.theme-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+        const theme = opt.getAttribute('data-theme');
+        userSettings.theme = theme;
+        saveSettings();
+        applySettings();
+    });
+});
+
 document.querySelectorAll('.toggle-item input').forEach(input => {
     input.addEventListener('change', (e) => {
         const tool = e.target.id.replace('toggle-', '');
