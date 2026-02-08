@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SidePanel Hub</title>
+    <link rel="stylesheet" href="sidepanel.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="collapse-icon" id="collapse-sidebar" title="Collapse Sidebar">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
+            </svg>
+        </div>
+        <div id="apps-container">
+            <!-- Dynamic icons will be injected here -->
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="pin-icon" id="pin-toggle" title="Pin Sidebar">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor"
+                    d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2m-7.2 2l1.2-1.2V4h4v6.8l1.2 1.2h-6.4Z" />
+            </svg>
+        </div>
+        <div class="settings-icon" id="settings-trigger" title="Settings">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor"
+                    d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5A3.5 3.5 0 0 1 15.5 12A3.5 3.5 0 0 1 12 15.5M19.43 12.97c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-.97l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.08-.73-1.69-.98l-.37-2.65A.488.488 0 0 0 14 2h-4c-.25 0-.46.18-.49.42l-.37 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.63c-.04.32-.07.65-.07.97c0 .33.03.66.07.97l-2.11 1.63c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.31.61.22l2.49-1c.52.39 1.08.73 1.69.98l.37 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.37-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.22.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.63Z" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="content">
+        <!-- Settings Panel (Integrated View) -->
+        <div id="settings-panel" class="settings-panel">
+            <div class="settings-header">
+                <h3>Customice Sidebar</h3>
+            </div>
+            <div class="settings-body">
+                <div class="add-app-section">
+                    <h4>Add New Site</h4>
+                    <div class="input-group">
+                        <input type="text" id="new-app-name" placeholder="Name (e.g. Gemini)">
+                        <input type="text" id="new-app-url" placeholder="URL (e.g. https://...)">
+                        <button id="add-app-btn">Add</button>
+                    </div>
+                </div>
+                <div class="manage-apps-section">
+                    <h4>My Sites</h4>
+                    <div id="apps-list">
+                        <!-- List of added apps for removal -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <iframe id="app-frame" src="about:blank" frameborder="0"></iframe>
+    </div>
+    <script src="sidepanel.js"></script>
+</body>
+
+</html>

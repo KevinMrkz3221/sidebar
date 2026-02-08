@@ -1,0 +1,302 @@
+:root {
+    --bg-color: #0f0f0f;
+    --sidebar-bg: #1a1a1a;
+    --content-bg: #0f0f0f;
+    --accent-color: #3ea6ff;
+    --hover-bg: #2a2a2a;
+    --text-color: #ffffff;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    overflow: hidden;
+    background-color: transparent;
+    /* Changed to transparent */
+}
+
+.sidebar {
+    width: 60px;
+    background-color: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    border-right: 1px solid #333;
+    z-index: 10;
+    overflow-y: auto;
+    scrollbar-width: none;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+#apps-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.app-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    flex-shrink: 0;
+}
+
+.app-icon img {
+    width: 24px;
+    height: 24px;
+    filter: grayscale(0.5);
+    transition: filter 0.3s;
+    pointer-events: none;
+}
+
+.app-icon:hover {
+    background-color: var(--hover-bg);
+    transform: scale(1.05);
+}
+
+.app-icon.active {
+    background-color: var(--hover-bg);
+    border-left: 3px solid var(--accent-color);
+    border-radius: 0 12px 12px 0;
+}
+
+.app-icon.active img {
+    filter: grayscale(0);
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.settings-icon,
+.pin-icon {
+    margin-bottom: 20px;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.settings-icon:hover,
+.pin-icon:hover,
+.settings-icon.active {
+    color: white;
+    background-color: var(--hover-bg);
+}
+
+.pin-icon.pinned {
+    color: var(--accent-color);
+}
+
+.collapse-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+    color: #888;
+    cursor: pointer;
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    border-radius: 50%;
+}
+
+body:not(.pinned-mode) .collapse-icon {
+    display: flex;
+}
+
+.collapse-icon:hover {
+    color: white;
+    background-color: var(--hover-bg);
+}
+
+.content {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    background-color: var(--content-bg);
+    display: none;
+    min-width: 0;
+}
+
+body.expanded .content {
+    display: flex;
+    flex-direction: column;
+}
+
+body:not(.expanded) {
+    justify-content: flex-start;
+}
+
+#app-frame {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: var(--bg-color);
+}
+
+/* Settings Panel (Integrated) */
+.settings-panel {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: var(--content-bg);
+    color: white;
+    overflow-y: auto;
+}
+
+.settings-panel.active {
+    display: flex;
+}
+
+.settings-panel.active~#app-frame {
+    display: none;
+}
+
+.settings-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.settings-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+#close-settings {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.settings-body {
+    padding: 20px;
+}
+
+.add-app-section h4,
+.manage-apps-section h4 {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-group input {
+    background: #121212;
+    border: 1px solid #333;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: white;
+}
+
+#add-app-btn {
+    background: var(--accent-color);
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.manage-apps-section {
+    margin-top: 25px;
+}
+
+#apps-list {
+    margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.app-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    margin-bottom: 5px;
+}
+
+.app-item span {
+    font-size: 14px;
+    color: #ccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+.delete-btn {
+    color: #ff4444;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: var(--bg-color);
+}
+
+.resize-handle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    cursor: ew-resize;
+    background: transparent;
+    z-index: 100;
+}
+
+.resize-handle:hover,
+.resizing .resize-handle {
+    background: var(--accent-color);
+}
+
+body:not(.expanded) .resize-handle {
+    display: none;
+}

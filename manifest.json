@@ -1,0 +1,55 @@
+{
+    "manifest_version": 3,
+    "name": "SidePanel Hub Pro",
+    "version": "4.0",
+    "description": "Sidebar auto-ajustable estilo Opera integrado en cada página.",
+    "permissions": [
+        "declarativeNetRequest",
+        "declarativeNetRequestFeedback",
+        "storage"
+    ],
+    "host_permissions": [
+        "<all_urls>",
+        "https://*.messenger.com/*",
+        "https://*.facebook.com/*",
+        "https://web.whatsapp.com/*",
+        "https://music.youtube.com/*",
+        "https://gemini.google.com/*"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "sidebar_loader.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "sidepanel.html",
+                "sidepanel.css",
+                "sidepanel.js",
+                "icon.png"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "declarative_net_request": {
+        "rule_resources": [
+            {
+                "id": "ruleset_1",
+                "enabled": true,
+                "path": "rules.json"
+            }
+        ]
+    },
+    "icons": {
+        "128": "icon.png"
+    }
+}
