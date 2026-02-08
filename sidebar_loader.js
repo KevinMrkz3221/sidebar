@@ -16,31 +16,38 @@
     // Floating Trigger (The "Label")
     const trigger = document.createElement('div');
     trigger.id = 'sidepanel-hub-trigger';
-    trigger.innerHTML = '&#9654;'; // Simple arrow or label
+    trigger.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="m9 18 6-6-6-6"/></svg>`;
     trigger.style.cssText = `
         position: fixed;
         left: 0;
         top: 50%;
-        transform: translateY(-50%);
-        width: 12px;
-        height: 60px;
-        background: #1a1a1a;
-        border: 1px solid #333;
+        transform: translateY(-50%) translateX(-2px);
+        width: 14px;
+        height: 64px;
+        background: #0f172a;
+        border: 1px solid rgba(16, 185, 129, 0.3);
         border-left: none;
-        border-radius: 0 8px 8px 0;
+        border-radius: 0 10px 10px 0;
         cursor: pointer;
         z-index: 2147483646;
         display: none;
         align-items: center;
         justify-content: center;
-        color: #888;
-        font-size: 10px;
-        transition: all 0.2s;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        color: #10b981;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 2px 0 12px rgba(0,0,0,0.4);
     `;
 
-    trigger.onmouseover = () => { trigger.style.background = '#252525'; trigger.style.color = 'white'; };
-    trigger.onmouseout = () => { trigger.style.background = '#1a1a1a'; trigger.style.color = '#888'; };
+    trigger.onmouseover = () => {
+        trigger.style.background = '#1e293b';
+        trigger.style.transform = 'translateY(-50%) translateX(0)';
+        trigger.style.width = '18px';
+    };
+    trigger.onmouseout = () => {
+        trigger.style.background = '#0f172a';
+        trigger.style.transform = 'translateY(-50%) translateX(-2px)';
+        trigger.style.width = '14px';
+    };
     trigger.onclick = () => {
         isSidebarHidden = false;
         updateVisibility();
