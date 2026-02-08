@@ -807,12 +807,19 @@ body.expanded .content {
 
 /* Settings Section */
 .settings-section h4 {
-    margin: 0 0 15px 0;
+    margin: 0 0 16px 0;
     font-size: 12px;
     font-weight: 600;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.1em;
+}
+
+.toggle-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* Spacing between toggle items */
 }
 
 .toggle-item {
@@ -822,15 +829,24 @@ body.expanded .content {
     cursor: pointer;
     font-size: 14px;
     color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.02);
-    padding: 12px 16px;
-    border-radius: 12px;
+    background: rgba(30, 41, 59, 0.4);
+    /* Slightly denser slate */
+    padding: 14px 18px;
+    border-radius: 14px;
     border: 1px solid var(--border-color);
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 4px;
+    /* Extra insurance for spacing */
+}
+
+.toggle-item:last-child {
+    margin-bottom: 0;
 }
 
 .toggle-item:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(30, 41, 59, 0.7);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(2px);
 }
 
 .toggle-item input[type="checkbox"] {
