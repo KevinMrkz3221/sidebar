@@ -14,7 +14,11 @@
         "https://*.facebook.com/*",
         "https://web.whatsapp.com/*",
         "https://music.youtube.com/*",
-        "https://gemini.google.com/*"
+        "https://gemini.google.com/*",
+        "https://api.open-meteo.com/*",
+        "https://geocoding-api.open-meteo.com/*",
+        "https://nominatim.openstreetmap.org/*",
+        "https://ipapi.co/*"
     ],
     "content_scripts": [
         {
